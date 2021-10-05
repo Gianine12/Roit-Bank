@@ -5,6 +5,8 @@ import Home from '../views/Home.vue'
 // import Cadastro from '@/components/Cadastro.vue'
 // import Modal from '@/components/Modal.vue'
 
+import Login from '@/components/Login.vue'
+
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -13,16 +15,11 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   },
-  // {
-  //   path: '/',
-  //   name: 'Cadastro',
-  //   component: Cadastro
-  // },
-  // {
-  //   path: '/modal',
-  //   name: 'Modal',
-  //   component: Modal,
-  // }
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
 ]
 
 const router = new VueRouter({

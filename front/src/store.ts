@@ -8,8 +8,10 @@ const state  = {
     title: String,
     isModalVisible: false,
     isExcluse: false,
-    cad: {},
-    estados: ['AC','AL', 'AP', 'AM', 'BA', 'CE','GO', 'MA', 'MT','MS','MG','PA','PB','PR','PR','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO','DF']
+    cad: Object,
+    
+    user: {},
+    token: '',
 }
 
 const actions = {
@@ -19,7 +21,7 @@ const actions = {
     },
 
     addList({ commit }, item){
-        return new Promise(resolve => {
+        return new Promise(() => {
             item.key = Date.now()
             commit('addList', item)
         })
@@ -30,25 +32,41 @@ const actions = {
     },
 
     setModalVisible( { commit}, visible) {
-        return  new Promise( resolve => {
+        return  new Promise( () => {
             commit('setModalVisible', visible)
         })
     },
 
     setExcluse( { commit }, value) {
-        return new Promise( resolve => {
+        return new Promise( () => {
             commit('setExcluse', value)
         })
     },
 
     removeItem( { commit }, value){
-        return new Promise( resolve => {
+        return new Promise( () => {
             commit('removeItem', value)
         })
+    },
+
+    setUser( { commit }, value){
+        commit('setUser', value)
+    },
+
+    setToken( { commit }, value){
+        commit('setToken', value)
     },
 }
 
 const mutations = {
+
+    setUser(state,payload){
+        state.user = payload
+    },
+
+    setToken(state,payload){
+        state.token = payload
+    },
 
     setCad(state, payload){
         state.cad = payload

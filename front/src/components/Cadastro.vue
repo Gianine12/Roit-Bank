@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 <template>
     <div class="box">
         <h3>{{ titulo }}</h3>
@@ -91,18 +91,17 @@ import axios from 'axios';
 
             <hr>
 
+        </form>
             <div>
                 <button @click="close()">Cancelar</button>
-                <button @submit.prevent="addItem(item)"> Salvar</button>
+                <button @click="addItem(item)"> Salvar</button>
             </div>
-        </form>
         
     </div>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
-import Vue from 'vue';
 
 export default{
     name: 'Cadastro',
@@ -112,38 +111,46 @@ export default{
             form: 0,
             item: {
                 nome: '',
-            },
-            github: 0,
+                // id: Number,
+                // complemento: String,
+                // userGit: String,
+                // rua: String,
+                // bairro: String,
+                // cidade: String,
+                // estado: String
+            }
         }
     }, 
 
     methods:{
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         close(){
             this.$store.dispatch('setModalVisible', false)
         },
 
-        addItem(item){
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        addItem(item: any){
             this.$store.dispatch('addList', item)
             this.$store.dispatch('setModalVisible', false)
         },
 
-        pesqGitHub(nome){
-            const response = 
-                axios.get(`https://api.github.com/search/users?q=${nome}`)
-                .then( (response) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        pesqGitHub(nome: any){
+            axios.get(`https://api.github.com/search/users?q=${nome}`)
+            .then( (response) => {
 
-                    this.item.id = response.data.items[1].id;
-                    this.item.userGit = response.data.items[1].login;
-                    this.form += 1
-                })
-                .catch( (error) => {
-                    console.log(error[1])
-                })
+                this.item.id = response.data.items[1].id;
+                this.item.userGit = response.data.items[1].login;
+                this.form += 1;
+            })
+            .catch( (error) => {
+                console.log(error[1])
+            })
         },
 
-        pesquisaCep(cep){
-            const response = 
-                axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        pesquisaCep(cep: any){
+            axios.get(`https://viacep.com.br/ws/${cep}/json/`)
                 .then( (response) => {
                     this.item.rua = response.data.logradouro;
                     this.item.bairro = response.data.bairro;
@@ -155,12 +162,12 @@ export default{
                 })
                 .catch( (error) => {
                     console.log(error[1])
-                })
-                
+                })     
         }
     },
 
     computed:{
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         list(){
             return this.$store.state.list;
         },
